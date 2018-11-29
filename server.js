@@ -36,30 +36,33 @@ app.get('/', function(req, res){
 });
 
   
+
+// your first API endpoint...  
 function callback(resp){
   console.log('result',resp)
-}
-// your first API endpoint...  
+};
+
 function saveURL(urlObj,cb) {
   console.log('running',urlObj)
   const url = new URL(urlObj);
   url.save((err, data) => err ? cb(err) : cb(data));
 };
 
-async function listAll(){
-  var data = await URL.find();
+function listAll(){
+  var data = URL.find();
   return data;
 };
 
 function checkIfExists(url){
   var data = URL.findOne({original_url:url})
   return data;
-}
+};
 
 function getUrlForShort(reference){
   var data = URL.findOne({ short_url:Number(reference)});
   return data;
-}
+};
+
 
 app.post('/api/shorturl/new', async function (req, res) {
   var list = await listAll();
